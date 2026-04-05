@@ -29,22 +29,22 @@ show_circular_orbits: false
 
 # Named dwarf planets to show (select individually).
 dwarf_planets_to_show:
-  - Pluto
+  # - Pluto
   # - Ceres
   # - Eris
   # - Haumea
   # - Makemake
 
 # Clouds of many minor bodies. (Dots only; no labels.)
-show_main_belt: true
+show_main_belt: false
 show_jupiter_trojans: true
-show_tno: true
+show_kuiper_belt: true
 
 # Performance controls.
 minor_bodies_total_sample: 200000 # 5000 if you want speed. 200000 for performance.
 main_belt_max: 800
 trojans_max: 400
-tno_max: 800
+kuiper_belt_max: 800
 minor_bodies_seed: 50
 
 # Plot styling for minor-body dots.
