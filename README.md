@@ -60,6 +60,7 @@ Notes:
 - On the first run with minor bodies enabled, Skyfield may download the MPCORB catalog (tens of MB) and cache it.
 - The notebook then builds a **small local excerpt** (default `mpcorb.sample.DAT`) so subsequent runs remain fast.
 - Requires `pandas` (already included in the notebook install cell).
+- A few MPCORB rows can contain elements that are numerically problematic for orbit reconstruction; the notebook skips those rows instead of crashing.
 
 Keys:
 - `dwarf_planets_to_show`: list of dwarf planet names to plot (strings)

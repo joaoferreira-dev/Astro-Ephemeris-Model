@@ -29,7 +29,7 @@ show_circular_orbits: false
 
 # Named dwarf planets to show (select individually).
 dwarf_planets_to_show:
-  # - Pluto
+  - Pluto
   # - Ceres
   # - Eris
   # - Haumea
@@ -38,7 +38,7 @@ dwarf_planets_to_show:
 # Clouds of many minor bodies. (Dots only; no labels.)
 show_main_belt: true
 show_jupiter_trojans: true
-show_tno: false
+show_tno: true
 
 # Performance controls.
 minor_bodies_total_sample: 200000 # 5000 if you want speed. 200000 for performance.
