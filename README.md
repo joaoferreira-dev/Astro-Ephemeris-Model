@@ -1,23 +1,23 @@
-# astro-ephemeris-model — Solar System (2D heliocentric) minimal viewer
+# astro-ephemeris-model — Solar System (2D) minimal viewer
 
-A minimal Jupyter notebook that plots heliocentric planet positions in the ecliptic plane for a chosen UTC date/time.
+A minimal Jupyter notebook that plots Solar System positions in the ecliptic plane for a chosen UTC date/time.
 
 This is meant to be simple and hackable:
 - **2D** only (uses ecliptic plane; plots **x/y**)
-- **Heliocentric** (positions are computed as *(body − Sun)*)
+- **Center-relative** (positions are computed as *(body − center_body)*; default `Sun`)
 - Default timestamp is **now (UTC)**
 - Controlled by a small YAML file instead of editing the notebook
 
 ## What the “model” does
 
-Given a UTC timestamp, the notebook uses **Skyfield** with the **JPL DE421** ephemeris to compute each selected body’s heliocentric ecliptic position:
+Given a UTC timestamp, the notebook uses **Skyfield** with the **JPL DE421** ephemeris to compute each selected body’s ecliptic position relative to the configured center:
 
 - Load ephemeris: `de421.bsp`
 - Choose bodies (Mercury…Neptune; outer planets via barycenters)
-- Compute heliocentric position: `(body - sun).at(t).ecliptic_position().au`
+- Compute center-relative position: `(body - center).at(t).ecliptic_position().au`
 - Plot the **(x, y)** components in **AU**
 
-Optional: it can draw a “circular orbit” for each planet as a circle with radius equal to the planet’s **current heliocentric distance** (purely visual; not a physical orbit fit).
+Optional: it can draw a “circular orbit” for each planet as a circle with radius equal to the planet’s **current distance to the chosen center** (purely visual; not a physical orbit fit).
 
 ## Files
 
@@ -45,6 +45,7 @@ Keys:
 - `target_date`: `"YYYY-MM-DD"` or `""` (empty) to use current time
 - `target_time`: `"HH:MM"` or `""` (empty) to use current time
 - `planets_to_show`: list of planet names (strings)
+- `center_body`: plot center/origin (string). Allowed: `Sun` or any of the planet names.
 - `lim_au`: plot limits in AU (sets x/y to `[-lim_au, +lim_au]`)
 - `show_circular_orbits`: `true/false` (draws the distance circles)
 
@@ -103,6 +104,9 @@ planets_to_show:
   - Earth
   - Mars
   - Jupiter
+
+# Optional (default is Sun)
+center_body: "Sun"
 
 lim_au: 8
 show_circular_orbits: true
