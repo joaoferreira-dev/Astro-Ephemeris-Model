@@ -1,0 +1,50 @@
+name: Create PR to master
+
+on:
+  push:
+    branches:
+      - "feature/**"
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: create-pr-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  create_pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create PR (if missing)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BASE_BRANCH: master
+          HEAD_BRANCH: ${{ github.ref_name }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+
+          echo "Head branch: ${HEAD_BRANCH}"
+          echo "Base branch: ${BASE_BRANCH}"
+
+          # If an open PR already exists for head->base, do nothing.
+          if gh pr list \
+            --repo "${REPO}" \
+            --head "${HEAD_BRANCH}" \
+            --base "${BASE_BRANCH}" \
+            --state open \
+            --json number \
+            --jq 'length' \
+            | grep -qv '^0$'; then
+            echo "PR already exists. Skipping."
+            exit 0
+          fi
+
+          # Create a PR. --fill uses commits for title/body.
+          gh pr create \
+            --repo "${REPO}" \
+            --base "${BASE_BRANCH}" \
+            --head "${HEAD_BRANCH}" \
+            --fill
