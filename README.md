@@ -22,7 +22,7 @@ Optional: it can draw a “circular orbit” for each planet as a circle with ra
 ## Files
 
 - `solar_system_viewer.ipynb` — the viewer notebook
-- `viewer_config.yaml` — runtime configuration (date/time, planets, plot limits)
+- `config.yaml` — runtime configuration (date/time, planets, plot limits)
 - `de421.bsp` — JPL ephemeris kernel used by Skyfield
 
 Note: `.gitignore` ignores `*.bsp`, so if you clone this repo elsewhere you may need to supply `de421.bsp` again.
@@ -38,7 +38,7 @@ Note: `.gitignore` ignores `*.bsp`, so if you clone this repo elsewhere you may 
 
 The notebook’s first code cell uses `%pip install ...` to install these into the active kernel environment.
 
-## Configuration (`viewer_config.yaml`)
+## Configuration (`config.yaml`)
 
 Keys:
 
@@ -116,7 +116,7 @@ show_circular_orbits: true
 
 1. Ensure `de421.bsp` is present next to the notebook (same folder).
 2. Open `solar_system_viewer.ipynb` in VS Code (or Jupyter).
-3. Edit `viewer_config.yaml` as needed.
+3. Edit `config.yaml` as needed.
 4. Run the notebook cells top-to-bottom.
 
 ## Notes / limitations
