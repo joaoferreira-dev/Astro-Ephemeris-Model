@@ -1,0 +1,24 @@
+# Solar System viewer config
+# Edit this file instead of editing the notebook.
+
+# Formats:
+# - target_date: 'YYYY-MM-DD' or '' to use now (UTC)
+# - target_time: 'HH:MM' or '' to use now (UTC)
+
+target_date: ""
+target_time: ""
+
+planets_to_show:
+  # - Mercury
+  # - Venus
+  # - Earth
+  # - Mars
+  - Jupiter
+  - Saturn
+  - Uranus
+  - Neptune
+
+lim_au: 50
+
+# If true, draw a circle for each planet with radius = current heliocentric distance (AU).
+show_circular_orbits: false
