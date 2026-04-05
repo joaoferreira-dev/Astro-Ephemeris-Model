@@ -1,3 +1,9 @@
 .venv/
 
 *.bsp
+
+# Generated MPCORB excerpt cache (minor bodies)
+mpcorb*.DAT
+mpcorb*.dat
+mpcorb*.DAT.*
+mpcorb*.dat.*

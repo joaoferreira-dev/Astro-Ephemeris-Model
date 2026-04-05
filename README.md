@@ -13,7 +13,7 @@ This is meant to be simple and hackable:
 Given a UTC timestamp, the notebook uses **Skyfield** with the **JPL DE421** ephemeris to compute each selected body’s heliocentric ecliptic position:
 
 - Load ephemeris: `de421.bsp`
-- Choose bodies (Mercury…Pluto; outer planets via barycenters)
+- Choose bodies (Mercury…Neptune; outer planets via barycenters)
 - Compute heliocentric position: `(body - sun).at(t).ecliptic_position().au`
 - Plot the **(x, y)** components in **AU**
 
@@ -48,9 +48,35 @@ Keys:
 - `lim_au`: plot limits in AU (sets x/y to `[-lim_au, +lim_au]`)
 - `show_circular_orbits`: `true/false` (draws the distance circles)
 
+### Minor bodies (dwarf planets + clouds)
+
+The notebook can optionally plot:
+- **Named dwarf planets** (select individually; includes Pluto)
+- **Clouds** of many minor bodies (main belt, Jupiter Trojans, trans-Neptunian objects)
+
+This uses **Minor Planet Center (MPC)** orbital elements through Skyfield.
+
+Notes:
+- On the first run with minor bodies enabled, Skyfield may download the MPCORB catalog (tens of MB) and cache it.
+- The notebook then builds a **small local excerpt** (default `mpcorb.sample.DAT`) so subsequent runs remain fast.
+- Requires `pandas` (already included in the notebook install cell).
+
+Keys:
+- `dwarf_planets_to_show`: list of dwarf planet names to plot (strings)
+- `show_main_belt`: `true/false`
+- `show_jupiter_trojans`: `true/false`
+- `show_tno`: `true/false`
+- `minor_bodies_total_sample`: how many MPCORB lines to sample into the local excerpt
+- `main_belt_max`, `trojans_max`, `tno_max`: caps for how many dots to plot per group
+- `minor_bodies_seed`: makes sampling deterministic/reproducible
+- `minor_bodies_size`, `minor_bodies_alpha`: dot styling
+- `minor_bodies_cache_path`: excerpt filename (relative to the notebook folder by default)
+- `mpcorb_reload`: force re-download + rebuild the excerpt
+
 Allowed names:
 
-- `Mercury`, `Venus`, `Earth`, `Mars`, `Jupiter`, `Saturn`, `Uranus`, `Neptune`, `Pluto`
+- Planets: `Mercury`, `Venus`, `Earth`, `Mars`, `Jupiter`, `Saturn`, `Uranus`, `Neptune`
+- Dwarf planets: `Pluto`, `Ceres`, `Eris`, `Haumea`, `Makemake`
 
 Example:
 

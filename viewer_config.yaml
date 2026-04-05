@@ -22,3 +22,37 @@ lim_au: 50
 
 # If true, draw a circle for each planet with radius = current heliocentric distance (AU).
 show_circular_orbits: false
+
+# --- Minor bodies (optional) ---
+# Uses Minor Planet Center (MPC) orbital elements via Skyfield.
+# On first run, Skyfield may download MPCORB (~tens of MB) and cache it.
+
+# Named dwarf planets to show (select individually).
+dwarf_planets_to_show:
+  # - Pluto
+  # - Ceres
+  # - Eris
+  # - Haumea
+  # - Makemake
+
+# Clouds of many minor bodies. (Dots only; no labels.)
+show_main_belt: true
+show_jupiter_trojans: true
+show_tno: false
+
+# Performance controls.
+minor_bodies_total_sample: 200000 # 5000 if you want speed. 200000 for performance.
+main_belt_max: 800
+trojans_max: 400
+tno_max: 800
+minor_bodies_seed: 50
+
+# Plot styling for minor-body dots.
+minor_bodies_size: 2.0
+minor_bodies_alpha: 0.55
+
+# Cache file written next to the notebook.
+minor_bodies_cache_path: "mpcorb.sample.DAT"
+
+# If true, force a fresh MPCORB download and rebuild the excerpt.
+mpcorb_reload: false
