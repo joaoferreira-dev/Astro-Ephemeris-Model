@@ -52,7 +52,7 @@ Keys:
 
 The notebook can optionally plot:
 - **Named dwarf planets** (select individually; includes Pluto)
-- **Clouds** of many minor bodies (main belt, Jupiter Trojans, Kuiper Belt)
+- **Clouds** of many minor bodies (main belt, Jupiter Trojans, Centaurs, Kuiper Belt)
 
 This uses **Minor Planet Center (MPC)** orbital elements through Skyfield.
 
@@ -66,9 +66,10 @@ Keys:
 - `dwarf_planets_to_show`: list of dwarf planet names to plot (strings)
 - `show_main_belt`: `true/false`
 - `show_jupiter_trojans`: `true/false`
+- `show_centaurs`: `true/false`
 - `show_kuiper_belt`: `true/false`
 - `minor_bodies_total_sample`: how many MPCORB lines to sample into the local excerpt
-- `main_belt_max`, `trojans_max`, `kuiper_belt_max`: caps for how many dots to plot per group
+- `main_belt_max`, `trojans_max`, `centaurs_max`, `kuiper_belt_max`: caps for how many dots to plot per group
 - `minor_bodies_seed`: makes sampling deterministic/reproducible
 - `minor_bodies_size`, `minor_bodies_alpha`: dot styling
 - `minor_bodies_cache_path`: excerpt filename (relative to the notebook folder by default)
@@ -76,6 +77,11 @@ Keys:
 
 Kuiper Belt definition used by this notebook:
 - **Kuiper Belt cloud** is defined as minor bodies with semimajor axis **strictly** between **30 and 50 AU**: $30 < a < 50$ (where $a$ is MPCORB `semimajor_axis_au`).
+
+Centaurs definition used by this notebook:
+- **Centaurs cloud** is defined as minor bodies with semimajor axis and perihelion strictly inside the giant-planet region: $5.5 < a < 30$ and $5.5 < q < 30$ AU, where $q = a(1-e)$ and $e$ is MPCORB `eccentricity`.
+
+Note: these are orbital-element filters from MPCORB, not full dynamical classifications.
 
 Migration note:
 - Old keys `show_tno` / `tno_max` are accepted as aliases, but are deprecated.

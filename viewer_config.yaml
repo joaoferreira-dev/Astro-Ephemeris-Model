@@ -38,12 +38,14 @@ dwarf_planets_to_show:
 # Clouds of many minor bodies. (Dots only; no labels.)
 show_main_belt: false
 show_jupiter_trojans: true
+show_centaurs: false # Defined here as 5.5<a<30 AU AND 5.5<q<30 AU, where q=a(1-e) (MPCORB)
 show_kuiper_belt: true
 
 # Performance controls.
 minor_bodies_total_sample: 200000 # 5000 if you want speed. 200000 for performance.
 main_belt_max: 800
 trojans_max: 400
+centaurs_max: 400
 kuiper_belt_max: 800
 minor_bodies_seed: 50
 
