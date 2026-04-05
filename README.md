@@ -1,23 +1,23 @@
-# astro-ephemeris-model — Solar System (2D heliocentric) minimal viewer
+# astro-ephemeris-model — Solar System (2D) minimal viewer
 
-A minimal Jupyter notebook that plots heliocentric planet positions in the ecliptic plane for a chosen UTC date/time.
+A minimal Jupyter notebook that plots Solar System positions in the ecliptic plane for a chosen UTC date/time.
 
 This is meant to be simple and hackable:
 - **2D** only (uses ecliptic plane; plots **x/y**)
-- **Heliocentric** (positions are computed as *(body − Sun)*)
+- **Center-relative** (positions are computed as *(body − center_body)*; default `Sun`)
 - Default timestamp is **now (UTC)**
 - Controlled by a small YAML file instead of editing the notebook
 
 ## What the “model” does
 
-Given a UTC timestamp, the notebook uses **Skyfield** with the **JPL DE421** ephemeris to compute each selected body’s heliocentric ecliptic position:
+Given a UTC timestamp, the notebook uses **Skyfield** with the **JPL DE421** ephemeris to compute each selected body’s ecliptic position relative to the configured center:
 
 - Load ephemeris: `de421.bsp`
 - Choose bodies (Mercury…Neptune; outer planets via barycenters)
-- Compute heliocentric position: `(body - sun).at(t).ecliptic_position().au`
+- Compute center-relative position: `(body - center).at(t).ecliptic_position().au`
 - Plot the **(x, y)** components in **AU**
 
-Optional: it can draw a “circular orbit” for each planet as a circle with radius equal to the planet’s **current heliocentric distance** (purely visual; not a physical orbit fit).
+Optional: it can draw a “circular orbit” for each planet as a circle with radius equal to the planet’s **current distance to the chosen center** (purely visual; not a physical orbit fit).
 
 ## Files
 
@@ -45,6 +45,7 @@ Keys:
 - `target_date`: `"YYYY-MM-DD"` or `""` (empty) to use current time
 - `target_time`: `"HH:MM"` or `""` (empty) to use current time
 - `planets_to_show`: list of planet names (strings)
+- `center_body`: plot center/origin (string). Allowed: `Sun` or any of the planet names.
 - `lim_au`: plot limits in AU (sets x/y to `[-lim_au, +lim_au]`)
 - `show_circular_orbits`: `true/false` (draws the distance circles)
 
@@ -52,7 +53,7 @@ Keys:
 
 The notebook can optionally plot:
 - **Named dwarf planets** (select individually; includes Pluto)
-- **Clouds** of many minor bodies (main belt, Jupiter Trojans, Kuiper Belt)
+- **Clouds** of many minor bodies (main belt, Jupiter Trojans, Centaurs, Kuiper Belt)
 
 This uses **Minor Planet Center (MPC)** orbital elements through Skyfield.
 
@@ -66,9 +67,10 @@ Keys:
 - `dwarf_planets_to_show`: list of dwarf planet names to plot (strings)
 - `show_main_belt`: `true/false`
 - `show_jupiter_trojans`: `true/false`
+- `show_centaurs`: `true/false`
 - `show_kuiper_belt`: `true/false`
 - `minor_bodies_total_sample`: how many MPCORB lines to sample into the local excerpt
-- `main_belt_max`, `trojans_max`, `kuiper_belt_max`: caps for how many dots to plot per group
+- `main_belt_max`, `trojans_max`, `centaurs_max`, `kuiper_belt_max`: caps for how many dots to plot per group
 - `minor_bodies_seed`: makes sampling deterministic/reproducible
 - `minor_bodies_size`, `minor_bodies_alpha`: dot styling
 - `minor_bodies_cache_path`: excerpt filename (relative to the notebook folder by default)
@@ -76,6 +78,11 @@ Keys:
 
 Kuiper Belt definition used by this notebook:
 - **Kuiper Belt cloud** is defined as minor bodies with semimajor axis **strictly** between **30 and 50 AU**: $30 < a < 50$ (where $a$ is MPCORB `semimajor_axis_au`).
+
+Centaurs definition used by this notebook:
+- **Centaurs cloud** is defined as minor bodies with semimajor axis and perihelion strictly inside the giant-planet region: $5.5 < a < 30$ and $5.5 < q < 30$ AU, where $q = a(1-e)$ and $e$ is MPCORB `eccentricity`.
+
+Note: these are orbital-element filters from MPCORB, not full dynamical classifications.
 
 Migration note:
 - Old keys `show_tno` / `tno_max` are accepted as aliases, but are deprecated.
@@ -97,6 +104,9 @@ planets_to_show:
   - Earth
   - Mars
   - Jupiter
+
+# Optional (default is Sun)
+center_body: "Sun"
 
 lim_au: 8
 show_circular_orbits: true
