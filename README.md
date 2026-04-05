@@ -52,7 +52,7 @@ Keys:
 
 The notebook can optionally plot:
 - **Named dwarf planets** (select individually; includes Pluto)
-- **Clouds** of many minor bodies (main belt, Jupiter Trojans, trans-Neptunian objects)
+- **Clouds** of many minor bodies (main belt, Jupiter Trojans, Kuiper Belt)
 
 This uses **Minor Planet Center (MPC)** orbital elements through Skyfield.
 
@@ -66,13 +66,19 @@ Keys:
 - `dwarf_planets_to_show`: list of dwarf planet names to plot (strings)
 - `show_main_belt`: `true/false`
 - `show_jupiter_trojans`: `true/false`
-- `show_tno`: `true/false`
+- `show_kuiper_belt`: `true/false`
 - `minor_bodies_total_sample`: how many MPCORB lines to sample into the local excerpt
-- `main_belt_max`, `trojans_max`, `tno_max`: caps for how many dots to plot per group
+- `main_belt_max`, `trojans_max`, `kuiper_belt_max`: caps for how many dots to plot per group
 - `minor_bodies_seed`: makes sampling deterministic/reproducible
 - `minor_bodies_size`, `minor_bodies_alpha`: dot styling
 - `minor_bodies_cache_path`: excerpt filename (relative to the notebook folder by default)
 - `mpcorb_reload`: force re-download + rebuild the excerpt
+
+Kuiper Belt definition used by this notebook:
+- **Kuiper Belt cloud** is defined as minor bodies with semimajor axis **strictly** between **30 and 50 AU**: $30 < a < 50$ (where $a$ is MPCORB `semimajor_axis_au`).
+
+Migration note:
+- Old keys `show_tno` / `tno_max` are accepted as aliases, but are deprecated.
 
 Allowed names:
 
